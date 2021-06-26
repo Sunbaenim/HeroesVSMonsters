@@ -5,7 +5,7 @@ namespace HeroesVSMonsters.Models.DiceTemplate
 {
     public class Dice
     {
-        private Random _random;
+        private readonly Random _random;
         public byte NbSide { get; }
         public Dice(byte nbSides)
         {
