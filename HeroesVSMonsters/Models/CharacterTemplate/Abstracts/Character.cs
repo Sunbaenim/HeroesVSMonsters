@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using HeroesVSMonsters.Models.DiceTemplate;
+﻿using HeroesVSMonsters.Models.DiceTemplate;
+using HeroesVSMonsters.Models.MapTemplate;
 using HeroesVSMonsters.Models.CharacterTemplate.Heroes.Concrete;
 using HeroesVSMonsters.Models.CharacterTemplate.Monsters.Concrete;
 
@@ -8,10 +7,11 @@ namespace HeroesVSMonsters.Models.CharacterTemplate.Abstracts
 {
     public abstract class Character
     {
-        protected List<Character> CharactersList;
         protected Dice _d6;
         protected Dice _d4;
         private short _healthPoints;
+        public string CharactersName { get; }
+        public Map MapName { get; }
         public ushort Stamina { get; }
         public ushort StaminaBonus { get; } = 0;
         public ushort Strength { get; }
@@ -21,7 +21,7 @@ namespace HeroesVSMonsters.Models.CharacterTemplate.Abstracts
             get { return _healthPoints; }
             private set { _healthPoints = value; }
         }
-        public Character()
+        public Character(string charactersName, Map mapName)
         {
             switch (this)
             {
@@ -41,7 +41,9 @@ namespace HeroesVSMonsters.Models.CharacterTemplate.Abstracts
                 default:
                     break;
             }
-            CharactersList = new List<Character>();
+            MapName = mapName;
+            CharactersName = charactersName;
+            MapName.CharactersList.Add(this);
             _d6 = new Dice(6);
             _d4 = new Dice(4);
             Stamina = _d6.ThrowDices(4, 3);

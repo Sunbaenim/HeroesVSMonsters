@@ -1,6 +1,6 @@
-﻿using System;
+﻿using HeroesVSMonsters.Models.MapTemplate;
 using HeroesVSMonsters.Models.CharacterTemplate.Monsters.Abstracts;
-using HeroesVSMonsters.Models.CharacterTemplate.Monsters.Interfaces;
+using HeroesVSMonsters.Models.CharacterTemplate.Interfaces;
 
 namespace HeroesVSMonsters.Models.CharacterTemplate.Monsters.Concrete
 {
@@ -8,7 +8,7 @@ namespace HeroesVSMonsters.Models.CharacterTemplate.Monsters.Concrete
     {
         public ushort QuantityOfGold { get; }
         public ushort QuantityOfLeather { get; }
-        public Dragonet()
+        public Dragonet(string charactersName, Map mapName ) : base(charactersName, mapName)
         {
             QuantityOfGold = base._d6.ThrowDices();
             QuantityOfLeather = base._d4.ThrowDices();

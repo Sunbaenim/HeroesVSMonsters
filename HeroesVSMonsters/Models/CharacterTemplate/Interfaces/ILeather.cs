@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HeroesVSMonsters.Models.CharacterTemplate.Monsters.Interfaces
+﻿namespace HeroesVSMonsters.Models.CharacterTemplate.Interfaces
 {
     public interface ILeather
     {

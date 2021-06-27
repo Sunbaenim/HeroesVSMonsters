@@ -1,30 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HeroesVSMonsters.Models.MapTemplate;
 using HeroesVSMonsters.Models.CharacterTemplate.Abstracts;
 using HeroesVSMonsters.Models.CharacterTemplate.Monsters.Concrete;
+using HeroesVSMonsters.Models.CharacterTemplate.Heroes.InventoryTemplate;
 
 namespace HeroesVSMonsters.Models.CharacterTemplate.Heroes.Abstracts
 {
     public abstract class Hero : Character
     {
-        private List<ushort> Inventory;
-        public Hero()
+        public Inventory _inventory;
+        public Hero(string charactersName, Map mapName) : base(charactersName, mapName)
         {
-            Inventory = new List<ushort>();
+            _inventory = new Inventory();
         }
-        public void Depouiller(Character monster)
+        public void LootingCorpse(Character monster)
         {
             switch (monster)
             {
                 case Dragonet dragonet:
-                    this.Inventory.Add(dragonet.QuantityOfGold);
-                    this.Inventory.Add(dragonet.QuantityOfLeather);
+                    _inventory.SlotGold.Quantity += dragonet.QuantityOfGold;
+                    _inventory.SlotLeather.Quantity += dragonet.QuantityOfLeather;
                     break;
                 case Orc orc:
-                    this.Inventory.Add(orc.QuantityOfGold);
+                    _inventory.SlotGold.Quantity += orc.QuantityOfGold;
                     break;
                 case Wolf wolf:
-                    this.Inventory.Add(wolf.QuantityOfLeather);
+                    _inventory.SlotGold.Quantity += wolf.QuantityOfLeather;
                     break;
                 default:
                     break;
@@ -35,8 +35,8 @@ namespace HeroesVSMonsters.Models.CharacterTemplate.Heroes.Abstracts
             base.Strike(target);
             if (target.HealthPoints <= 0)
             {
-                Depouiller(target);
-                base.CharactersList.Remove(this);
+                LootingCorpse(target);
+                MapName.CharactersList.Remove(target);
             }
         }
     }
