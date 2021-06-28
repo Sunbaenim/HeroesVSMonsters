@@ -1,7 +1,9 @@
 ﻿using HeroesVSMonsters.Models.MapTemplate;
 using HeroesVSMonsters.Models.CharacterTemplate.Abstracts;
+using HeroesVSMonsters.Models.CharacterTemplate.Monsters.Abstracts;
 using HeroesVSMonsters.Models.CharacterTemplate.Monsters.Concrete;
 using HeroesVSMonsters.Models.CharacterTemplate.Heroes.InventoryTemplate;
+using System;
 
 namespace HeroesVSMonsters.Models.CharacterTemplate.Heroes.Abstracts
 {
@@ -24,7 +26,7 @@ namespace HeroesVSMonsters.Models.CharacterTemplate.Heroes.Abstracts
                     _inventory.SlotGold.Quantity += orc.QuantityOfGold;
                     break;
                 case Wolf wolf:
-                    _inventory.SlotGold.Quantity += wolf.QuantityOfLeather;
+                    _inventory.SlotLeather.Quantity += wolf.QuantityOfLeather;
                     break;
                 default:
                     break;
@@ -32,6 +34,7 @@ namespace HeroesVSMonsters.Models.CharacterTemplate.Heroes.Abstracts
         }
         public override void Strike(Character target)
         {
+            if (!(target is Monster)) throw new Exception("Target is not a monster.");
             base.Strike(target);
             if (target.HealthPoints <= 0)
             {
